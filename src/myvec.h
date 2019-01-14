@@ -1,7 +1,6 @@
 #ifndef MYVEC_H
 #define MYVEC_H
 
-//#include <stddef.h> // for size_t
 #include <iostream>
 
 const int DEFAULT_VECTOR_CAPACITY = 5;
@@ -141,7 +140,9 @@ private:
 
     void move_construct(MyVec&& other) {
 
-        copy_construct(other);
+        elem_ = other.elem_;
+        size_ = other.size_;
+        capacity_ = other.capacity_;
 
         other.elem_ = nullptr;
         other.size_ = 0;
