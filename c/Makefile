@@ -1,0 +1,16 @@
+# Nice Makefiles tutorial:
+# https://www.youtube.com/watch?v=_r7i5X0rXJk
+
+all: readstrings playgl playstrtok
+
+readstrings: readstrings.c
+	gcc readstrings.c -o build/readstrings
+
+playgl: playgl.c
+	gcc playgl.c -o build/playgl
+
+playstrtok: playstrtok.c
+	gcc playstrtok.c -o build/playstrtok
+
+clean:
+	rm build/*
