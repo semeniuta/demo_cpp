@@ -1,7 +1,7 @@
 # Nice Makefiles tutorial:
 # https://www.youtube.com/watch?v=_r7i5X0rXJk
 
-all: readstrings playgl playstrtok
+all: readstrings playgl playstrtok scopenread
 
 readstrings: readstrings.c
 	gcc readstrings.c -o build/readstrings
@@ -11,6 +11,9 @@ playgl: playgl.c
 
 playstrtok: playstrtok.c
 	gcc playstrtok.c -o build/playstrtok
+
+scopenread: scopenread.c
+	gcc scopenread.c -o build/scopenread
 
 clean:
 	rm build/*
