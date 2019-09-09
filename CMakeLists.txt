@@ -8,3 +8,4 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(demo_vec src/demo_vec.cpp)
 add_executable(demo_cpmv src/demo_cpmv.cpp)
+add_executable(demo_rvalue src/demo_rvalue.cpp)
