@@ -5,16 +5,12 @@
 struct person {
     std::string name;
     unsigned int age;
-    std::vector<int> numbers; // TODO make a demo with this vector
+    std::vector<int> numbers; 
 };
 
-void print_string_addr(const std::string& s) {
-    
-    auto name_addr = static_cast<const void *>(s.data());
-    std::cout << name_addr << "\n";
-}
+void inspect_x(const person& p) {
 
-void inspect_person(const person& p) {
+    std::cout << "name=";
 
     if (p.name.empty()) {
         std::cout << "<empty>";
@@ -22,29 +18,44 @@ void inspect_person(const person& p) {
         std::cout << p.name;
     }
 
-    std::cout << " " << p.age << "\n";
-    print_string_addr(p.name);
+    std::cout << " age=";
+    std::cout << " " << p.age;
+
+    std::cout << " numbers=";
+    if (p.numbers.data() == nullptr) {
+        std::cout << "NULL";
+    } else {
+        std::cout << "[";
+        for (int i = 0; i < p.numbers.size() - 1; i++)
+        {
+            std::cout << p.numbers[i] << ", ";
+        }
+        std::cout << p.numbers[p.numbers.size() - 1] << "]";
+    }
+    std::cout << "\n";
+
+    std::cout << "Address of .name:\t" << static_cast<const void *>(p.name.data()) << "\n";
+
+    std::cout << "Address of .numbers:\t" << static_cast<const void *>(p.numbers.data()) << "\n";
+
+    std::cout << "\n";
 }
 
 int main() {
 
-
-    person me{"Alex", 29, {4, 8, 16}};
+    person x{"Alex", 29, {4, 8, 16}};
 
     std::cout << "me (before move):\n";
-    inspect_person(me);
-    std::cout << "\n";
-    
-    person me_moved;
-    me_moved = std::move(me);
+    inspect_x(x);
 
-    std::cout << "me (after move):\n";
-    inspect_person(me);
-    std::cout << "\n";
+    person x_moved;
+    x_moved = std::move(x);
 
-    std::cout << "me_moved:\n";
-    inspect_person(me_moved);
-    std::cout << "\n";
+    std::cout << "x (after move):\n";
+    inspect_x(x);
+
+    std::cout << "x_moved:\n";
+    inspect_x(x_moved);
 
     return 0;
 }
