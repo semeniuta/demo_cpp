@@ -1,3 +1,12 @@
+/*
+ *
+ * Demo of copy and move operations based on the MyVec class (myvec.h)
+ * 
+ * vec0 --(copy)--> vec1
+ * vec0 --(copy)--> vec2 --(move)--> vec3 --(move)--> vec4
+ * 
+ */
+
 #include "myvec.h"
 #include <iostream>
 
