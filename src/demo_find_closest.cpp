@@ -31,12 +31,18 @@ int main() {
 
     std::sort(numbers.begin(), numbers.end());
 
+    std::cout << "Sorted vector:" << std::endl; 
     print_vector(numbers);
 
-    long idx_closest = search_closest(numbers, 5.1);
+    for (double x : std::vector<double>{5, 5.1}) {
 
-    std::cout << "Index of the closest element: " << idx_closest << std::endl;
-    std::cout << "The closest element itself: " << numbers[idx_closest] << std::endl;
+        std::cout << "\nSearching element closest to " << x << std::endl;
+
+        long idx_closest = search_closest(numbers, x);
+
+        std::cout << "Index of the closest element: " << idx_closest << std::endl;
+        std::cout << "The closest element itself: " << numbers[idx_closest] << std::endl;
+    }
 
     return 0;
 
