@@ -4,7 +4,8 @@ project(CppXplore)
 
 set(CMAKE_CXX_STANDARD 11)
 
-find_package (Threads REQUIRED)
+# https://stackoverflow.com/questions/1662909/undefined-reference-to-pthread-create-in-linux
+find_package(Threads REQUIRED)
 
 add_executable(demo_vec src/demo_vec.cpp)
 add_executable(demo_cpmv src/demo_cpmv.cpp)
