@@ -14,7 +14,7 @@ void generate_events(std::queue<unsigned int>& q) {
 
     std::random_device rd{};
     std::default_random_engine generator{rd()};
-    std::uniform_int_distribution<unsigned int> distrib{0, 5};
+    std::uniform_int_distribution<unsigned int> distrib{0, 25};
 
     for (;;) {
 
@@ -35,9 +35,17 @@ void process_events(std::queue<unsigned int>& q) {
     for (;;) {
 
         std::unique_lock<std::mutex> lock{mx};
+
+        int count = 0;
+
         cond.wait(
             lock,
-            [&q]{return !q.empty();}
+            [&q, &count]{
+                
+                std::cout << "[condvar] Checking " << ++count << std::endl;
+                
+                return !q.empty();
+            }
         );
 
         auto value = q.front();
