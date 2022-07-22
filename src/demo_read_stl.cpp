@@ -13,6 +13,7 @@
 #include <fstream>
 #include <filesystem>
 #include <cassert>
+#include <cstdio>
 
 namespace {
 
@@ -45,6 +46,24 @@ void read_binary_floats(std::ifstream& in, float* dst, size_t length)
     auto bytes_ptr = reinterpret_cast<char*>(dst);
     size_t n_bytes = length * sizeof(float);
     in.read(bytes_ptr, n_bytes);
+}
+
+void print_point(const char* prefix, const float x[3])
+{
+    printf("%s[%.2f, %.2f, %.2f]", prefix, x[0], x[1], x[2]);
+}
+
+void print_facet(const Facet& f, size_t index)
+{
+    printf("facet %zu: ", index);
+    print_point("normal = ", f.normal);
+    printf(", ");
+    print_point("v1 = ", f.v1);
+    printf(", ");
+    print_point("v2 = ", f.v2);
+    printf(", ");
+    print_point("v3 = ", f.v3);
+    printf("\n");
 }
 
 }
@@ -92,7 +111,8 @@ int main(int argc, char* argv[])
         read_binary_floats(in, f.v1, 3);
         read_binary_floats(in, f.v2, 3);
         read_binary_floats(in, f.v3, 3);
-        std::cout << f.normal[1] << std::endl;
+
+        print_facet(f, i);
     }
 
     return 0;
