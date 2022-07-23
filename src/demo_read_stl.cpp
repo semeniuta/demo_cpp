@@ -30,27 +30,28 @@ std::ifstream open_binary_file(char* filename)
     return std::ifstream{filename, std::ifstream::in | std::ifstream::binary};
 }
 
-void read_binary_uint(std::ifstream& in, unsigned int* dst)
+template <typename T>
+char* as_char_ptr(T* pointer)
 {
-    auto bytes_ptr = reinterpret_cast<char*>(dst);
-    in.read(bytes_ptr, sizeof(unsigned int));
+    return reinterpret_cast<char*>(pointer);
 }
 
-void read_binary_chars(std::ifstream& in, char* dst, size_t length)
+template <typename T>
+void read_binary_value(std::ifstream& in, T* dst)
 {
-    in.read(dst, length);
+    in.read(as_char_ptr(dst), sizeof(T));
 }
 
-void read_binary_floats(std::ifstream& in, float* dst, size_t length)
+template <typename T>
+void read_binary_array(std::ifstream& in, T* dst, size_t array_length)
 {
-    auto bytes_ptr = reinterpret_cast<char*>(dst);
-    size_t n_bytes = length * sizeof(float);
-    in.read(bytes_ptr, n_bytes);
+    size_t n_bytes = array_length * sizeof(T);
+    in.read(as_char_ptr(dst), n_bytes);
 }
 
 void print_point(const char* prefix, const float x[3])
 {
-    printf("%s[%.2f, %.2f, %.2f]", prefix, x[0], x[1], x[2]);
+    printf("%s[%.1f, %.1f, %.1f]", prefix, x[0], x[1], x[2]);
 }
 
 void print_facet(const Facet& f, size_t index)
@@ -97,20 +98,20 @@ int main(int argc, char* argv[])
     char header[81];
     unsigned int n_facets;
 
-    read_binary_chars(in, header, 80);
+    read_binary_array<char>(in, header, 80);
     header[80] = '\0';
 
-    read_binary_uint(in, &n_facets);
+    read_binary_value<unsigned int>(in, &n_facets);
 
     std::cout << "Header: " << header << "\n";
     std::cout << "Number of facets: " << n_facets << "\n";
 
     for (size_t i = 0; i < n_facets; ++i) {
         Facet f;
-        read_binary_floats(in, f.normal, 3);
-        read_binary_floats(in, f.v1, 3);
-        read_binary_floats(in, f.v2, 3);
-        read_binary_floats(in, f.v3, 3);
+        read_binary_array<float>(in, f.normal, 3);
+        read_binary_array<float>(in, f.v1, 3);
+        read_binary_array<float>(in, f.v2, 3);
+        read_binary_array<float>(in, f.v3, 3);
 
         print_facet(f, i);
     }
