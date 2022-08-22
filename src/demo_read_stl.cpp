@@ -14,6 +14,7 @@
 #include <filesystem>
 #include <cassert>
 #include <cstdio>
+#include <vector>
 
 namespace {
 
@@ -25,7 +26,7 @@ struct Facet
     float v3[3];
 };
 
-std::ifstream open_binary_file(char* filename)
+std::ifstream open_binary_file(const char* filename)
 {
     return std::ifstream{filename, std::ifstream::in | std::ifstream::binary};
 }
@@ -106,14 +107,19 @@ int main(int argc, char* argv[])
     std::cout << "Header: " << header << "\n";
     std::cout << "Number of facets: " << n_facets << "\n";
 
+    std::vector<Facet> facets;
+    facets.reserve(n_facets);
+
     for (size_t i = 0; i < n_facets; ++i) {
-        Facet f;
+        Facet f{};
         read_binary_array<float>(in, f.normal, 3);
         read_binary_array<float>(in, f.v1, 3);
         read_binary_array<float>(in, f.v2, 3);
         read_binary_array<float>(in, f.v3, 3);
 
         print_facet(f, i);
+
+        facets.emplace_back(f);
     }
 
     return 0;
