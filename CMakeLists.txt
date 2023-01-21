@@ -13,6 +13,7 @@ add_executable(demo_rvalue src/demo_rvalue.cpp)
 add_executable(demo_find_closest src/demo_find_closest.cpp)
 add_executable(demo_map src/demo_map.cpp)
 add_executable(demo_read_stl src/demo_read_stl.cpp)
+add_executable(demo_ranges src/demo_ranges.cpp)
 
 add_executable(demo_condvar src/demo_condvar.cpp)
 target_link_libraries(demo_condvar ${CMAKE_THREAD_LIBS_INIT})
