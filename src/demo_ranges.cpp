@@ -7,8 +7,8 @@ namespace {
 
 constexpr size_t n_numbers = 10;
 
-template <typename T>
-void print_vector(const std::vector<T>& v)
+template <std::ranges::range Range>
+void print_elements(Range v)
 {
     for (auto element : v) {
         std::cout << element << " ";
@@ -23,5 +23,18 @@ int main()
     std::vector<int> numbers(n_numbers);
     std::iota(numbers.begin(), numbers.end(), 0);
 
-    print_vector(numbers);
+    std::cout << "Original numbers:\n";
+    print_elements(numbers);
+    std::cout << "----------------------------\n";
+
+    std::cout << "for_each example:\n";
+    std::ranges::for_each(numbers, [](auto n) { std::cout << n << "\n"; });
+    std::cout << "----------------------------\n";
+
+    std::cout << "just even numbers:\n";
+    auto view = numbers | std::ranges::views::filter([](int x) { return x % 2 == 0; });
+    print_elements(view);
+    std::cout << "----------------------------\n";
+
+    return 0;
 }
