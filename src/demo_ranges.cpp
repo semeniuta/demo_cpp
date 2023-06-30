@@ -2,6 +2,8 @@
 #include <iostream>
 #include <ranges>
 #include <numeric> // for std::iota
+#include <sstream>
+#include <iomanip> // for std::hex
 
 namespace {
 
@@ -14,6 +16,13 @@ void print_elements(Range v)
         std::cout << element << " ";
     }
     std::cout << "\n";
+}
+
+std::string int_to_hex(int number)
+{
+    std::stringstream ss;
+    ss << "0x" << std::hex << number;
+    return ss.str();
 }
 
 } // namespace
@@ -34,6 +43,13 @@ int main()
     std::cout << "just even numbers:\n";
     auto view = numbers | std::ranges::views::filter([](int x) { return x % 2 == 0; });
     print_elements(view);
+    std::cout << "----------------------------\n";
+
+    std::cout << "more transformation of even numbers:\n";
+    auto view2 = numbers | std::ranges::views::filter([](int x) { return x % 2 == 0; })
+                         | std::views::transform([](int x) { return x * 100; })
+                         | std::views::transform(int_to_hex);
+    print_elements(view2);
     std::cout << "----------------------------\n";
 
     return 0;
