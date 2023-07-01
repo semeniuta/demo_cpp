@@ -41,15 +41,16 @@ int main()
     std::cout << "----------------------------\n";
 
     std::cout << "just even numbers:\n";
-    auto view = numbers | std::ranges::views::filter([](int x) { return x % 2 == 0; });
-    print_elements(view);
+    auto view_even = numbers | std::ranges::views::filter([](int x) { return x % 2 == 0; });
+    print_elements(view_even);
     std::cout << "----------------------------\n";
 
     std::cout << "more transformation of even numbers:\n";
-    auto view2 = numbers | std::ranges::views::filter([](int x) { return x % 2 == 0; })
-                         | std::views::transform([](int x) { return x * 100; })
-                         | std::views::transform(int_to_hex);
-    print_elements(view2);
+    auto view_even_times_100_as_hex = numbers
+        | std::ranges::views::filter([](int x) { return x % 2 == 0; })
+        | std::views::transform([](int x) { return x * 100; })
+        | std::views::transform(int_to_hex);
+    print_elements(view_even_times_100_as_hex);
     std::cout << "----------------------------\n";
 
     return 0;
