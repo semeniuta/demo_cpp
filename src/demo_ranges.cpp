@@ -25,6 +25,13 @@ std::string int_to_hex(int number)
     return ss.str();
 }
 
+std::string format_thing(const char* prefix, int suffix)
+{
+    std::stringstream ss;
+    ss << prefix << "_" << suffix;
+    return ss.str();
+}
+
 } // namespace
 
 int main()
@@ -41,17 +48,35 @@ int main()
     std::cout << "----------------------------\n";
 
     std::cout << "just even numbers:\n";
-    auto view_even = numbers | std::ranges::views::filter([](int x) { return x % 2 == 0; });
+    auto view_even = numbers | std::views::filter([](int x) { return x % 2 == 0; });
     print_elements(view_even);
     std::cout << "----------------------------\n";
 
     std::cout << "more transformation of even numbers:\n";
     auto view_even_times_100_as_hex = numbers
-        | std::ranges::views::filter([](int x) { return x % 2 == 0; })
+        | std::views::filter([](int x) { return x % 2 == 0; })
         | std::views::transform([](int x) { return x * 100; })
         | std::views::transform(int_to_hex);
     print_elements(view_even_times_100_as_hex);
     std::cout << "----------------------------\n";
+
+    std::cout << "ranges::transform with vector.reserve\n";
+    std::vector<std::string> users;
+    users.reserve(numbers.size());
+    std::ranges::transform(
+        numbers,
+        std::back_inserter(users),
+        [](int n) { return format_thing("user", n); }
+    );
+    print_elements(users);
+    std::cout << "----------------------------\n";
+
+    std::cout << "ranges::count_if\n";
+    std::vector<float> scores = {0.2, 0.68, 0.31, 0.59, 0.81, 0.74, 0.14};
+    const auto is_high = [](float score) { return score >= 0.5f; };
+    auto n_high = std::ranges::count_if(scores, is_high);
+    std::cout << "number of scores >= 0.5: " << n_high << "\n";
+    print_elements(scores | std::views::filter(is_high));
 
     return 0;
 }
