@@ -4,6 +4,7 @@
 #include <numeric> // for std::iota
 #include <sstream>
 #include <iomanip> // for std::hex
+#include <fmt/core.h>
 
 namespace {
 
@@ -22,13 +23,6 @@ std::string int_to_hex(int number)
 {
     std::stringstream ss;
     ss << "0x" << std::hex << number;
-    return ss.str();
-}
-
-std::string format_thing(const char* prefix, int suffix)
-{
-    std::stringstream ss;
-    ss << prefix << "_" << suffix;
     return ss.str();
 }
 
@@ -66,7 +60,7 @@ int main()
     std::ranges::transform(
         numbers,
         std::back_inserter(users),
-        [](int n) { return format_thing("user", n); }
+        [](int n) { return fmt::format("user_{}", n); }
     );
     print_elements(users);
     std::cout << "----------------------------\n";
