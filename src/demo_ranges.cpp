@@ -71,6 +71,16 @@ int main()
     auto n_high = std::ranges::count_if(scores, is_high);
     std::cout << "number of scores >= 0.5: " << n_high << "\n";
     print_elements(scores | std::views::filter(is_high));
+    std::cout << "----------------------------\n";
+
+    std::cout << "view to vector\n";
+    auto view_int_to_hex = std::views::iota(0, 21) | std::views::transform(int_to_hex);
+
+    std::vector<std::string> hex_strings;
+    hex_strings.reserve(view_int_to_hex.size());
+    std::ranges::copy(view_int_to_hex, std::back_inserter(hex_strings));
+
+    print_elements(hex_strings);
 
     return 0;
 }
