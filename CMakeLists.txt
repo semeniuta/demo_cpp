@@ -5,6 +5,8 @@ project(CppXplore)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(fmt)
+find_package(Boost 1.8 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
 #include_directories(${fmt_INCLUDE_DIRS})
 
 # https://stackoverflow.com/questions/1662909/undefined-reference-to-pthread-create-in-linux
