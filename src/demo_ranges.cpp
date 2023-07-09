@@ -80,15 +80,15 @@ int main()
     std::cout << "----------------------------\n";
 
     std::cout << "ranges::count_if\n";
-    std::vector<float> weights = {0.2, 0.68, 0.31, 0.59, 0.81, 0.74, 0.14};
+    const std::vector<float> weights = {0.2, 0.68, 0.31, 0.59, 0.81, 0.74, 0.14};
     const auto is_high = [](float w) { return w >= 0.5f; };
-    auto n_high = std::ranges::count_if(weights, is_high);
+    const auto n_high = std::ranges::count_if(weights, is_high);
     std::cout << "number of weights >= 0.5: " << n_high << "\n";
     print_elements(weights | std::views::filter(is_high));
     std::cout << "----------------------------\n";
 
     std::cout << "view to vector\n";
-    auto view_int_to_hex = std::views::iota(0, 21) | std::views::transform(int_to_hex);
+    const auto view_int_to_hex = std::views::iota(0, 21) | std::views::transform(int_to_hex);
 
     std::vector<std::string> hex_strings;
     hex_strings.reserve(view_int_to_hex.size());
@@ -114,11 +114,11 @@ int main()
 
     std::ranges::sort(office_scores, std::ranges::greater{}, &PersonScore::value);
 
-    auto office_view = office_scores | std::views::transform(
+    const auto office_view = office_scores | std::views::transform(
         [](const PersonScore& score) { return fmt::format("{} ({})", score.name, score.value); }
     );
 
-    std::vector<std::string> descriptions_of_scores = range_to_vector(office_view);
+    const auto descriptions_of_scores = range_to_vector(office_view);
 
     fmt::print("Scores: {}.\n", boost::algorithm::join(descriptions_of_scores, ", "));
     std::cout << "----------------------------\n";
