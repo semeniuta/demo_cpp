@@ -27,6 +27,19 @@ std::string int_to_hex(int number)
     return ss.str();
 }
 
+template <std::ranges::range Range>
+auto range_to_vector(const Range& range)
+{
+    using T = std::ranges::range_value_t<decltype(range)>;
+
+    std::vector<T> elements;
+    elements.reserve(range.size());
+
+    std::ranges::copy(range, std::back_inserter(elements));
+
+    return elements;
+}
+
 } // namespace
 
 int main()
@@ -105,9 +118,7 @@ int main()
         [](const PersonScore& score) { return fmt::format("{} ({})", score.name, score.value); }
     );
 
-    std::vector<std::string> descriptions_of_scores;
-    descriptions_of_scores.reserve(office_scores.size());
-    std::ranges::copy(office_view, std::back_inserter(descriptions_of_scores));
+    std::vector<std::string> descriptions_of_scores = range_to_vector(office_view);
 
     fmt::print("Scores: {}\n", boost::algorithm::join(descriptions_of_scores, ", "));
     std::cout << "----------------------------\n";
