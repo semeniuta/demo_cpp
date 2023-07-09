@@ -80,11 +80,11 @@ int main()
     std::cout << "----------------------------\n";
 
     std::cout << "ranges::count_if\n";
-    std::vector<float> scores = {0.2, 0.68, 0.31, 0.59, 0.81, 0.74, 0.14};
-    const auto is_high = [](float score) { return score >= 0.5f; };
-    auto n_high = std::ranges::count_if(scores, is_high);
-    std::cout << "number of scores >= 0.5: " << n_high << "\n";
-    print_elements(scores | std::views::filter(is_high));
+    std::vector<float> weights = {0.2, 0.68, 0.31, 0.59, 0.81, 0.74, 0.14};
+    const auto is_high = [](float w) { return w >= 0.5f; };
+    auto n_high = std::ranges::count_if(weights, is_high);
+    std::cout << "number of weights >= 0.5: " << n_high << "\n";
+    print_elements(weights | std::views::filter(is_high));
     std::cout << "----------------------------\n";
 
     std::cout << "view to vector\n";
@@ -120,7 +120,7 @@ int main()
 
     std::vector<std::string> descriptions_of_scores = range_to_vector(office_view);
 
-    fmt::print("Scores: {}\n", boost::algorithm::join(descriptions_of_scores, ", "));
+    fmt::print("Scores: {}.\n", boost::algorithm::join(descriptions_of_scores, ", "));
     std::cout << "----------------------------\n";
 
     return 0;
