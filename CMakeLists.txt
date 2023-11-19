@@ -5,9 +5,12 @@ project(demo_cpp)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(fmt)
+
 find_package(Boost 1.8 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+include_directories((${EINGEN3_INCLUDE_DIR}))
 # https://stackoverflow.com/questions/1662909/undefined-reference-to-pthread-create-in-linux
 find_package(Threads REQUIRED)
 
