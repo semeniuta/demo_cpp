@@ -23,6 +23,7 @@ add_executable(demo_find_closest src/demo_find_closest.cpp)
 add_executable(demo_map src/demo_map.cpp)
 add_executable(demo_read_stl src/demo_read_stl.cpp)
 add_executable(demo_span src/demo_span.cpp)
+add_executable(demo_rotations src/demo_rotations.cpp)
 
 add_executable(demo_ranges src/demo_ranges.cpp)
 target_link_libraries(demo_ranges fmt::fmt)
