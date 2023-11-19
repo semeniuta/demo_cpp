@@ -100,19 +100,16 @@ int main()
     };
 
     std::ranges::sort(office_scores, std::ranges::greater{}, &PersonScore::value);
+
     auto office_view = office_scores | std::views::transform(
         [](const PersonScore& score) { return fmt::format("{} ({})", score.name, score.value); }
     );
-    std::vector<std::string> v_scores_str;
-    v_scores_str.reserve(office_scores.size());
-    std::ranges::copy(office_view, std::back_inserter(v_scores_str));
 
-    // auto s = boost::algorithm::join(std::vector<std::string>{"one", "two", "three"}, "_");
-    auto s = boost::algorithm::join(
-        v_scores_str,
-        ", "
-    );
-    fmt::print("joined: {}\n", s);
+    std::vector<std::string> descriptions_of_scores;
+    descriptions_of_scores.reserve(office_scores.size());
+    std::ranges::copy(office_view, std::back_inserter(descriptions_of_scores));
+
+    fmt::print("Scores: {}\n", boost::algorithm::join(descriptions_of_scores, ", "));
     std::cout << "----------------------------\n";
 
     return 0;
