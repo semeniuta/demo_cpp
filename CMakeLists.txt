@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(demo_cpp)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(fmt)
 
@@ -11,6 +12,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 include_directories((${EINGEN3_INCLUDE_DIR}))
+
 # https://stackoverflow.com/questions/1662909/undefined-reference-to-pthread-create-in-linux
 find_package(Threads REQUIRED)
 
