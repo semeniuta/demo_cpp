@@ -7,7 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(fmt)
 
-find_package(Boost 1.8 REQUIRED)
+find_package(Boost 1.8 REQUIRED COMPONENTS algorithm)
 include_directories(${Boost_INCLUDE_DIRS})
 
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
