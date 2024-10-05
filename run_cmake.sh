@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cmake -B . -S .. --preset debug
+cmake -B . -S .. --preset default
