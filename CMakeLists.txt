@@ -19,7 +19,10 @@ find_package(Threads REQUIRED)
 add_executable(demo_vec src/demo_vec.cpp)
 add_executable(demo_cpmv src/demo_cpmv.cpp)
 add_executable(demo_rvalue src/demo_rvalue.cpp)
+
 add_executable(demo_find_closest src/demo_find_closest.cpp)
+target_link_libraries(demo_find_closest fmt::fmt)
+
 add_executable(demo_map src/demo_map.cpp)
 add_executable(demo_read_stl src/demo_read_stl.cpp)
 add_executable(demo_span src/demo_span.cpp)
